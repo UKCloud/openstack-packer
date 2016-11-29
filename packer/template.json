@@ -1,0 +1,47 @@
+{
+  "_comment": "Template file pulling from centos7",
+  "builders": [
+    {
+      "type": "openstack",
+      "image_name": "centos_lamp_php7",
+      "source_image": "0f1785b3-33c3-451e-92ce-13a35d991d60",
+      "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
+      "ssh_keypair_name": "ukcloudKeypair",
+      "ssh_private_key_file": "/Users/bobby/.ssh/ukcloudos",
+      "use_floating_ip": true,
+      "floating_ip_pool": "internet",
+      "ssh_username": "centos",
+      "ssh_pty" : true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm",
+        "sudo yum -y update",
+        "sudo yum -y install ansible",
+        "ansible --version"
+      ]
+    },{
+      "type": "ansible-local",
+      "playbook_file": "./ansible/playbook.yml",
+      "role_paths": [
+          "./ansible/roles/init",
+          "./ansible/roles/server",
+          "./ansible/roles/mongodb",
+          "./ansible/roles/php7",
+          "./ansible/roles/nginx",
+          "./ansible/roles/supervisord",
+          "./ansible/roles/redis"
+      ],
+      "group_vars": "./ansible/common/group_vars"
+    },{
+      "type": "shell",
+      "inline": [
+        "cd /srv && sudo chown -R nginx:nginx .",
+        "sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/bin --filename=composer"
+      ]
+    }
+  ]
+}
