@@ -6,7 +6,7 @@
       "image_name": "centos_lamp_php7",
       "source_image": "0f1785b3-33c3-451e-92ce-13a35d991d60",
       "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
-      "ssh_keypair_name": "ukcloudKeypair",
+      "ssh_keypair_name": "ukcloudos",
       "ssh_private_key_file": "/Users/bobby/.ssh/ukcloudos",
       "use_floating_ip": true,
       "floating_ip_pool": "internet",

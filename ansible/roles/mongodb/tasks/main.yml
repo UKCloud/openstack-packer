@@ -11,3 +11,7 @@
   file: path=/data/db state=directory
 
 - pear: name=pecl/mongodb state=latest
+
+
+- name: Disable chkconfig
+  shell: chkconfig mongod off
