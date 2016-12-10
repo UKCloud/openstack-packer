@@ -3,7 +3,7 @@
   "builders": [
     {
       "type": "openstack",
-      "image_name": "CoreOS-Docker-Beta",
+      "image_name": "CoreOS-Docker-Beta-1-12",
       "source_image": "8e892f81-2197-464a-9b6b-1a5045735f5d",
       "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
       "ssh_keypair_name": "ukcloudos",
@@ -19,12 +19,17 @@
       "type": "shell",
       "inline": [
         "sudo sh -c 'echo GROUP=beta > /etc/coreos/update.conf'",
-        "update_engine_client -update",
+        "sudo systemctl restart update-engine",
+        "sudo update_engine_client -update",
         "sudo sh -c 'mkdir /opt/'",
         "sudo sh -c 'mkdir /opt/bin'",
         "sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /opt/bin/docker-compose'",
         "sudo sh -c 'chmod +x /opt/bin/docker-compose'"
       ]
+    },{
+      "type": "file",
+      "source": "/Users/bobby/.ssh/ukcloudos",
+      "destination": "/home/core/.ssh/key.pem"
     }
   ]
 }
