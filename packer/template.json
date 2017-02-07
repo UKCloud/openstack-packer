@@ -3,7 +3,7 @@
   "builders": [
     {
       "type": "openstack",
-      "image_name": "CoreOS-Docker-Beta-1-12",
+      "image_name": "CoreOS-Docker-Alpha-1-13",
       "source_image": "8e892f81-2197-464a-9b6b-1a5045735f5d",
       "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
       "ssh_keypair_name": "ukcloudos",
@@ -18,7 +18,7 @@
     {
       "type": "shell",
       "inline": [
-        "sudo sh -c 'echo GROUP=beta > /etc/coreos/update.conf'",
+        "sudo sh -c 'echo GROUP=alpha > /etc/coreos/update.conf'",
         "sudo systemctl restart update-engine",
         "sudo update_engine_client -update",
         "sudo sh -c 'mkdir /opt/'",
