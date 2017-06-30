@@ -3,7 +3,7 @@
   "builders": [
     {
       "type": "openstack",
-      "image_name": "CoreOS-Docker-Alpha-1-13",
+      "image_name": "CoreOS-Alpha-Docker-17-05_Jun29",
       "source_image": "8e892f81-2197-464a-9b6b-1a5045735f5d",
       "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
       "ssh_keypair_name": "ukcloudos",
@@ -11,7 +11,8 @@
       "use_floating_ip": true,
       "floating_ip_pool": "internet",
       "ssh_username": "core",
-      "ssh_pty" : true
+      "ssh_pty" : true,
+      "security_groups": "example_secgroup"
     }
   ],
   "provisioners": [
@@ -19,12 +20,16 @@
       "type": "shell",
       "inline": [
         "sudo sh -c 'echo GROUP=alpha > /etc/coreos/update.conf'",
-        "sudo systemctl restart update-engine",
-        "sudo update_engine_client -update",
-        "sudo sh -c 'mkdir /opt/'",
-        "sudo sh -c 'mkdir /opt/bin'",
-        "sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /opt/bin/docker-compose'",
-        "sudo sh -c 'chmod +x /opt/bin/docker-compose'"
+        "sudo sh -c 'cat /etc/resolv.conf'",
+        "sudo sh -c 'mkdir -p /etc/systemd/system/docker.service.d'",
+        "sudo sh -c 'echo [Service] > /etc/systemd/system/docker.service.d/experimental.conf'",
+        "sudo sh -c 'echo ExecStart= >> /etc/systemd/system/docker.service.d/experimental.conf'",
+        "sudo sh -c 'echo ExecStart=/usr/bin/dockerd -H fd:// --experimental=true --metrics-addr=0.0.0.0:4999 >> /etc/systemd/system/docker.service.d/experimental.conf'",
+        "sudo sh -c 'cat /etc/systemd/system/docker.service.d/experimental.conf'",
+        "sudo sh -c 'mkdir -p /opt/bin'",
+        "sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` > /opt/bin/docker-compose'",
+        "sudo sh -c 'chmod +x /opt/bin/docker-compose'",
+        "sudo sh -c 'update_engine_client -update'"
       ]
     },{
       "type": "file",
