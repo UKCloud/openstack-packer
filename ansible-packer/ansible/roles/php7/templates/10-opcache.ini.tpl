@@ -1,1 +1,0 @@
-; Purposely empty, to ensure it's configured in php-[[env]].ini

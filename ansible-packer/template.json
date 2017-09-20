@@ -31,7 +31,6 @@
           "./ansible/roles/init",
           "./ansible/roles/server",
           "./ansible/roles/mongodb",
-          "./ansible/roles/php7",
           "./ansible/roles/nginx",
           "./ansible/roles/supervisord",
           "./ansible/roles/redis"

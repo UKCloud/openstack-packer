@@ -6,7 +6,6 @@
   roles:
     - init
     - server
-    - php7
     - mongodb
     - nginx
     - supervisord
