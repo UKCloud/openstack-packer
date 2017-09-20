@@ -56,15 +56,15 @@ command=/usr/sbin/nginx -c /etc/nginx/nginx.conf
 command=/usr/bin/redis-server
 
 [program:mongod]
-command=/usr/bin/mongod --smallfiles 
+command=/usr/bin/mongod --smallfiles
 
 ; Shouldnt exist on this container
 ; but we want it for dev env asap
 ; Need to configure as such
 ; doesnt have an issue on live as it doesnt exist
 ; so force quits..
-;[program:mysqld_safe]
-;command=/usr/bin/mysqld_safe --datadir='/var/lib/mysql' --init-file=/tmp/mysql-first-time.sql
+[program:mysqld_safe]
+command=/usr/bin/mysqld_safe --datadir='/var/lib/mysql' --init-file=/tmp/mysql-first-time.sql
 
 ;[program:theprogramname]
 ;command=/bin/cat              ; the program (relative uses PATH, can take args)
