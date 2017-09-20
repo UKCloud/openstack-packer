@@ -3,7 +3,7 @@
   "builders": [
     {
       "type": "openstack",
-      "image_name": "CoreOS-Alpha-Docker-17-05_Jun29",
+      "image_name": "CoreOS-Alpha-Docker-17-05_Aug22",
       "source_image": "8e892f81-2197-464a-9b6b-1a5045735f5d",
       "flavor": "c46be6d1-979d-4489-8ffe-e421a3c83fdd",
       "ssh_keypair_name": "ukcloudos",
